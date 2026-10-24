@@ -1,0 +1,67 @@
+﻿<Window x:Class="ArisPayrollCompanion.Views.DailyReportsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Daily Attendance &amp; Leave Reports" Height="650" Width="1000" WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Report Settings" Grid.Row="0" Margin="0,0,0,10" Padding="10" FontWeight="SemiBold">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <TextBlock Text="Data File (MONDATA): " VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Width="150"/>
+                    <TextBox x:Name="txtMonDataPath" Width="450" Height="28" VerticalContentAlignment="Center" IsReadOnly="True" Background="#F0F0F0" Foreground="#333"/>
+                    <Button x:Name="btnBrowseMonData" Content="📂 Browse File" Width="110" Height="28" Margin="10,0,0,0" Click="btnBrowseMonData_Click" Cursor="Hand"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="Select Date: " VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Width="150"/>
+                    <DatePicker x:Name="dpReportDate" Width="150" Margin="0,0,20,0"/>
+
+                    <Button x:Name="btnRunReport" Content="🏃 Run Report" Width="130" Height="35" Background="#0078D7" Foreground="White" FontWeight="Bold" Click="btnRunReport_Click" Cursor="Hand"/>
+                    <Button x:Name="btnExportExcel" Content="📊 Export to Excel" Width="140" Height="35" Background="#27AE60" Foreground="White" FontWeight="Bold" Margin="15,0,0,0" Click="btnExportExcel_Click" Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- 🔥 NEW: Live Search Bar -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
+            <TextBlock Text="🔍 Search (Card No or Name): " VerticalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+            <TextBox x:Name="txtSearch" Width="250" Height="28" Margin="10,0,0,0" VerticalContentAlignment="Center" TextChanged="txtSearch_TextChanged"/>
+        </StackPanel>
+
+        <TabControl x:Name="tabControl" Grid.Row="2">
+            <TabItem Header="🚨 Late Punching (> 08:32)" FontSize="14">
+                <DataGrid x:Name="dgLate" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="#F9F9F9">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Card No" Binding="{Binding CardNumber}" Width="100" FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="Emp Code" Binding="{Binding EmployeeCode}" Width="80"/>
+                        <DataGridTextColumn Header="Employee Name" Binding="{Binding EmployeeName}" Width="250"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Department}" Width="200"/>
+                        <DataGridTextColumn Header="Punch Time" Binding="{Binding PunchTimeStr}" Width="120" FontWeight="Bold" Foreground="#E74C3C"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <TabItem Header="❌ Absent Employees" FontSize="14">
+                <DataGrid x:Name="dgAbsent" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="#F9F9F9">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Card No" Binding="{Binding CardNumber}" Width="100" FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="Emp Code" Binding="{Binding EmployeeCode}" Width="80"/>
+                        <DataGridTextColumn Header="Employee Name" Binding="{Binding EmployeeName}" Width="250"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Department}" Width="200"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120" FontWeight="Bold" Foreground="#E74C3C"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

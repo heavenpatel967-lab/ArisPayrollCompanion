@@ -1,0 +1,77 @@
+﻿<Window x:Class="ArisPayrollCompanion.Views.EditEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit Employee Details" 
+        Height="650" Width="700" 
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Edit Employee Profile" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
+
+                    <TextBlock Text="Employee Code (Read-Only from DBF):" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtEmpCode" IsReadOnly="True" Background="#F0F0F0" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="DBF Name (Read-Only):" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtDbfName" IsReadOnly="True" Background="#F0F0F0" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Original / Full Name:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtOriginalName" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Aadhar Name:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtAadharName" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Aadhar Number:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtAadharNumber" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Phone Number:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtPhone" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Native Place (State/District):" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtNativePlace" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Village:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtVillage" Margin="0,5,0,15" Height="30" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Assigned Duties:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtDuties" Margin="0,5,0,15" Height="60" AcceptsReturn="True" TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Remarks / Notes:" FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtRemarks" Margin="0,5,0,15" Height="60" AcceptsReturn="True" TextWrapping="Wrap"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <TextBlock Text="Profile Photo" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                    <Border BorderBrush="Gray" BorderThickness="1" Width="150" Height="150" Background="#FAFAFA" Margin="0,0,0,10">
+                        <Image x:Name="imgProfilePhoto" Stretch="UniformToFill"/>
+                    </Border>
+
+                    <Button x:Name="btnBrowsePhoto" Content="Select Photo" Width="120" Height="30" Click="btnBrowsePhoto_Click"/>
+                    <Button x:Name="btnClearPhoto" Content="Clear Photo" Width="120" Height="30" Margin="0,10,0,0" Click="btnClearPhoto_Click"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button x:Name="btnSave" Content="Save Profile" Width="120" Height="35" Background="#28A745" Foreground="White" FontWeight="Bold" Margin="0,0,10,0" Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="35" Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

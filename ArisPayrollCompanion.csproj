@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+
+		<!-- Changed to disable to stop Windows Forms from colliding with WPF -->
+		<ImplicitUsings>disable</ImplicitUsings>
+
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.105.0" />
+		<PackageReference Include="DotNetDBF" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
+	</ItemGroup>
+</Project>

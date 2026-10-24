@@ -1,0 +1,97 @@
+﻿<Window x:Class="ArisPayrollCompanion.Views.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Global Command Center" 
+        Height="700" Width="1000" 
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F6FA">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Factory Command Center" FontSize="26" FontWeight="Black" Foreground="#2C3E50" Margin="0,0,0,20"/>
+
+        <!-- KPI Summary Cards -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Headcount Card -->
+            <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="20">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.05" BlurRadius="5" ShadowDepth="1"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Active Headcount (Payroll)" Foreground="#7F8C8D" FontWeight="SemiBold" FontSize="14"/>
+                    <TextBlock x:Name="txtTotalEmployees" Text="Loading..." FontSize="32" FontWeight="Bold" Foreground="#2980B9" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Factory Loan Total -->
+            <Border Grid.Column="2" Background="White" CornerRadius="8" Padding="20">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.05" BlurRadius="5" ShadowDepth="1"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Total Factory Outstanding Loan" Foreground="#7F8C8D" FontWeight="SemiBold" FontSize="14"/>
+                    <TextBlock x:Name="txtGlobalLoan" Text="Loading..." FontSize="28" FontWeight="Bold" Foreground="#C0392B" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Factory Advance Total -->
+            <Border Grid.Column="4" Background="White" CornerRadius="8" Padding="20">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.05" BlurRadius="5" ShadowDepth="1"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Total Factory Advance Taken" Foreground="#7F8C8D" FontWeight="SemiBold" FontSize="14"/>
+                    <TextBlock x:Name="txtGlobalAdvance" Text="Loading..." FontSize="28" FontWeight="Bold" Foreground="#E67E22" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- AWOL / Late Return Alert Table -->
+        <GroupBox Grid.Row="2" Header="🚨 ACTION REQUIRED: Overdue from Village / Leave" Padding="10" Background="White" BorderBrush="#E74C3C" BorderThickness="2">
+            <DataGrid x:Name="dgLateReturns" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" 
+                      Background="White" RowHeight="35" AlternatingRowBackground="#FFF5F5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Emp Code" Binding="{Binding EmployeeCode}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Employee Name" Binding="{Binding EmployeeName}" Width="200"/>
+                    <DataGridTextColumn Header="Departure Date" Binding="{Binding DepartureDate}" Width="120"/>
+                    <DataGridTextColumn Header="Expected Return" Binding="{Binding ExpectedReturnDate}" Width="120"/>
+
+                    <!-- Days Late Highlighted in Red -->
+                    <DataGridTextColumn Header="Days Late" Binding="{Binding DaysLate}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="#C0392B"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Notes / Reason" Binding="{Binding Reason}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Window>

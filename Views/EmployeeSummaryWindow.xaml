@@ -1,0 +1,190 @@
+﻿<Window x:Class="ArisPayrollCompanion.Views.EmployeeSummaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="360 Employee Summary" 
+        Height="900" Width="950" 
+        WindowStartupLocation="CenterOwner"
+        Background="#E5E5E5">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="White" Padding="15" BorderBrush="#CCCCCC" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnPrint" Content="🖨️ Print / Save as PDF" Width="160" Height="35" Background="#0078D7" Foreground="White" FontWeight="Bold" Click="btnPrint_Click"/>
+                <Button Content="Close" Width="100" Height="35" Margin="10,0,0,0" Click="btnClose_Click"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="20">
+            <Grid x:Name="PrintArea" Width="794" MinHeight="1123" Background="White" Margin="0,0,0,20">
+                <Grid.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.1" BlurRadius="10" ShadowDepth="2"/>
+                </Grid.Effect>
+
+                <StackPanel Margin="40">
+                    <TextBlock Text="ARIS BATHWARES &amp; SANITARYWARES" FontSize="26" FontWeight="Black" HorizontalAlignment="Center"/>
+                    <TextBlock Text="360° EMPLOYEE SUMMARY REPORT" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,5,0,20" Foreground="#555555"/>
+                    <Rectangle Height="2" Fill="#000000" Margin="0,0,0,20"/>
+
+                    <Grid Margin="0,0,0,30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="PERSONAL &amp; CAREER DETAILS" FontWeight="Bold" FontSize="16" Foreground="#0078D7" Margin="0,0,0,10"/>
+
+                            <Grid Margin="0,0,20,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="Employee Name:" FontWeight="SemiBold" Grid.Row="0" Grid.Column="0"/>
+                                <TextBlock x:Name="txtFullName" Grid.Row="0" Grid.Column="1" FontWeight="Bold"/>
+
+                                <TextBlock Text="Emp Code / Card No:" FontWeight="SemiBold" Grid.Row="1" Grid.Column="0"/>
+                                <TextBlock x:Name="txtCodes" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Text="Department:" FontWeight="SemiBold" Grid.Row="2" Grid.Column="0"/>
+                                <TextBlock x:Name="txtDept" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Text="Phone Number:" FontWeight="SemiBold" Grid.Row="3" Grid.Column="0"/>
+                                <TextBlock x:Name="txtPhone" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Text="Aadhar Number:" FontWeight="SemiBold" Grid.Row="4" Grid.Column="0"/>
+                                <TextBlock x:Name="txtAadhar" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Text="Native Village:" FontWeight="SemiBold" Grid.Row="5" Grid.Column="0"/>
+                                <TextBlock x:Name="txtVillage" Grid.Row="5" Grid.Column="1"/>
+
+                                <TextBlock Text="Status:" FontWeight="SemiBold" Grid.Row="6" Grid.Column="0"/>
+                                <TextBlock x:Name="txtStatus" Grid.Row="6" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Width="130" Height="130" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Image x:Name="imgProfilePhoto" Stretch="UniformToFill"/>
+                        </Border>
+                    </Grid>
+
+                    <Rectangle Height="1" Fill="#DDDDDD" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="FINANCIAL SUMMARY" FontWeight="Bold" FontSize="16" Foreground="#0078D7" Margin="0,0,0,10"/>
+                    <Grid Margin="0,0,0,30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Row 0: Loans -->
+                        <TextBlock Text="Total Outstanding Loan:" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                        <TextBlock x:Name="txtTotalLoan" Text="Loading..." FontWeight="Bold" FontSize="13" Foreground="#C0392B" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+
+                        <!-- Loan Health Column -->
+                        <StackPanel Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" Margin="5,0,5,0">
+                            <TextBlock Text="Loan Health:" Foreground="#555555" FontSize="11" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="txtLoanHealthFraction" Text="0 / 0 Paid" Foreground="#333333" FontSize="13" FontWeight="Bold" Margin="0,1,0,0"/>
+                            <ItemsControl x:Name="icLoanLast6Months" Margin="0,2,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="10" Height="10" Background="{Binding Color}" CornerRadius="2" Margin="0,0,2,0" ToolTip="{Binding Month}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
+                        <!-- Row 1: Advances -->
+                        <TextBlock Text="Total Advance Taken:" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                        <TextBlock x:Name="txtTotalAdvance" Text="Loading..." FontWeight="Bold" FontSize="13" Foreground="#E67E22" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+
+                        <!-- Advance Health Column -->
+                        <StackPanel Grid.Column="3" Grid.RowSpan="2" VerticalAlignment="Center" Margin="5,0,5,0">
+                            <TextBlock Text="Advance Health:" Foreground="#555555" FontSize="11" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="txtAdvanceHealthFraction" Text="0 / 0 Safe" Foreground="#333333" FontSize="13" FontWeight="Bold" Margin="0,1,0,0"/>
+                            <ItemsControl x:Name="icAdvanceLast6Months" Margin="0,2,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Ellipse Width="10" Height="10" Fill="{Binding Color}" Margin="0,0,2,0" ToolTip="{Binding Month}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
+                        <!-- NEW: Leave Reliability Column -->
+                        <StackPanel Grid.Column="4" Grid.RowSpan="2" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock Text="Leave Reliability:" Foreground="#555555" FontSize="11" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="txtLeaveHealth" Text="0 / 0 On Time" Foreground="#333333" FontSize="13" FontWeight="Bold" Margin="0,1,0,0"/>
+                            <ItemsControl x:Name="icLeaveLast6" Margin="0,2,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Ellipse Width="10" Height="10" Fill="{Binding Color}" Margin="0,0,2,0" ToolTip="{Binding Month}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Rectangle Height="1" Fill="#DDDDDD" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="VILLAGE VISIT / LONG LEAVE HISTORY" FontWeight="Bold" FontSize="16" Foreground="#0078D7" Margin="0,0,0,10"/>
+                    <DataGrid x:Name="dgLeaves" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Background="White" BorderBrush="#CCCCCC" HeadersVisibility="Column" HorizontalGridLinesBrush="#EEEEEE" VerticalGridLinesBrush="Transparent">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Departure" Binding="{Binding DepartureDate}" Width="120"/>
+                            <DataGridTextColumn Header="Expected Return" Binding="{Binding ExpectedReturnDate}" Width="120"/>
+                            <DataGridTextColumn Header="Actual Return" Binding="{Binding ActualReturnDate}" Width="120"/>
+                            <DataGridTextColumn Header="Late Days" Binding="{Binding LateDays}" Width="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Reason / Notes" Binding="{Binding Reason}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Generated by ARIS Payroll Companion" FontSize="10" Foreground="Gray" HorizontalAlignment="Right" Margin="0,40,0,0"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
